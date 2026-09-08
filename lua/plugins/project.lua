@@ -7,6 +7,8 @@ return {
     projects = {
       "~/RiderProjects/*",
       "~/WebstormProjects/*",
+      "~/NodeProjects/*",
+      "~/Spielereien/*",
       "~/.config/*",
     },
     picker = {
