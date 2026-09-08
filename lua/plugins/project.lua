@@ -12,9 +12,6 @@ return {
     picker = {
       type = "fzf-lua",
     },
-    -- Verhindert, dass Session-Autoload beim leeren "nvim"-Aufruf mit dem
-    -- snacks-Dashboard um den Startbildschirm konkurriert.
-    dashboard_mode = true,
   },
   init = function()
     vim.opt.sessionoptions:append("globals")

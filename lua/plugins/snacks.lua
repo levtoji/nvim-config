@@ -8,7 +8,8 @@ return {
   opts = {
     zen = { enabled = true },
     notifier = { enabled = true },
-    dashboard = { enabled = true },
+    -- aus: kollidiert mit neovim-project's Session-Autoload, das hat Vorrang.
+    dashboard = { enabled = false },
     -- LSP-Rename für Dateien inkl. Import-Update; hookt sich automatisch in
     -- neo-tree's rename-Aktion ein (siehe snacks/rename.lua meta.desc).
     rename = { enabled = true },
@@ -19,6 +20,7 @@ return {
   },
   keys = {
     { "<leader>z", function() Snacks.zen() end, desc = "Zen Mode" },
+    { "<leader>H", function() Snacks.dashboard() end, desc = "Dashboard" },
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse (im Browser öffnen)" },
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File (mit Import-Update)" },
     {
