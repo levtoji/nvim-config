@@ -16,6 +16,7 @@ return {
           "roslyn-language-server",
           "typescript-language-server",
           "angular-language-server",
+          "eslint-lsp",
         },
       })
     end,
@@ -48,8 +49,21 @@ return {
           map("<leader>cf", function()
             vim.lsp.buf.format({ async = true })
           end, "Format Buffer")
+
+          -- Inlay Hints (Parameter-/Typ-Hinweise) anzeigen, falls der Server sie unterstützt -
+          -- die Server-Settings dafür (gopls.hints, csharp_enable_inlay_hints_*, ts_ls.inlayHints
+          -- unten) reichen allein nicht, das Rendering muss client-seitig aktiviert werden.
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client and client:supports_method("textDocument/inlayHint") then
+            vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+          end
         end,
       })
+
+      -- Inlay Hints buffer-lokal an/aus schalten
+      vim.keymap.set("n", "<leader>th", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
+      end, { desc = "Toggle Inlay Hints" })
 
       -- Completion-Fähigkeiten von blink.cmp an alle Server weiterreichen
       vim.lsp.config("*", {
@@ -77,7 +91,25 @@ return {
       -- TypeScript/Angular (agent-portal & Co, Nx-Monorepo): ts_ls für die
       -- Sprache, angularls zusätzlich für Angular-Templates/Komponenten.
       -- Root-Erkennung (u.a. über nx.json) übernimmt nvim-lspconfig selbst.
+      local ts_inlay_hints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      }
+      vim.lsp.config("ts_ls", {
+        settings = {
+          typescript = { inlayHints = ts_inlay_hints },
+          javascript = { inlayHints = ts_inlay_hints },
+        },
+      })
       vim.lsp.enable({ "ts_ls", "angularls" })
+
+      -- ESLint-Diagnostics inline (erkennt Monorepo-Configs & .eslintrc/eslint.config.* automatisch)
+      vim.lsp.enable("eslint")
     end,
   },
   {
