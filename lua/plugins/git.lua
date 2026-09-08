@@ -39,5 +39,20 @@ return {
       { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diff View (Projekt)" },
       { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "File History" },
     },
+    opts = {
+      -- Standardmäßig gibt's kein Single-Key-Close in den Diff-/File-Panel-
+      -- Fenstern (nur im Options-Panel) - q schließt hier den ganzen Verbund.
+      keymaps = {
+        view = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
+        },
+        file_panel = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
+        },
+        file_history_panel = {
+          { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" } },
+        },
+      },
+    },
   },
 }
