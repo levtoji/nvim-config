@@ -12,6 +12,7 @@ Minimale, aber IDE-taugliche Neovim-Config für Go- und .NET/C#-Entwicklung
 - **Tests:** [neotest](https://github.com/nvim-neotest/neotest) mit neotest-golang und neotest-dotnet
 - **Datei-/Git-Explorer:** neo-tree, gitsigns, neogit
 - **Finder:** fzf-lua
+- **Projekt-Switcher:** [neovim-project](https://github.com/coffebar/neovim-project) (`<leader>fp` Discover, `<leader>fP` Recent) – entdeckt Repos per Glob unter `~/RiderProjects`, `~/WebstormProjects`, `~/.config`, wechselt cwd und stellt die letzte Session wieder her
 - **Sonstiges:** treesitter, lualine, which-key, indent-blankline, Comment/autopairs/surround
 
 Keybindings sind Standard-Vim-Motions; Debug-Keys orientieren sich an Rider (`F9` Continue, `F8` Step Over, `F7` Step Into, `Shift+F8` Step Out).
