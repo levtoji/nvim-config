@@ -14,6 +14,7 @@ return {
         map("n", "<leader>hr", gs.reset_hunk, "Reset Hunk")
         map("n", "<leader>hp", gs.preview_hunk, "Preview Hunk")
         map("n", "<leader>hb", gs.blame_line, "Blame Line")
+        map("n", "<leader>tb", gs.toggle_current_line_blame, "Toggle Inline Blame")
       end,
     },
   },
@@ -30,5 +31,13 @@ return {
       },
     },
     opts = {},
+  },
+  {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    keys = {
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diff View (Projekt)" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "File History" },
+    },
   },
 }

@@ -10,5 +10,7 @@ return {
     { "<leader>fs", function() require("fzf-lua").lsp_document_symbols() end, desc = "Document Symbols" },
     { "<leader>fw", function() require("fzf-lua").lsp_workspace_symbols() end, desc = "Workspace Symbols" },
     { "<leader>fd", function() require("fzf-lua").diagnostics_document() end, desc = "Diagnostics" },
+    { "<leader>fc", function() require("fzf-lua").commands() end, desc = "Command Palette" },
+    { "<leader>fk", function() require("fzf-lua").keymaps() end, desc = "Search Keymaps" },
   },
 }

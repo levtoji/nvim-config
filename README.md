@@ -12,8 +12,9 @@ Git-Integration, Fuzzy-Finder).
 - **Formatting:** [conform.nvim](https://github.com/stevearc/conform.nvim) – Prettier on-save für ts/html/scss/css/json/yaml/markdown (Go bleibt bei `gofmt` via Autocmd)
 - **Debugging:** [nvim-dap](https://github.com/mfussenegger/nvim-dap) + nvim-dap-ui, `delve` (Go), `netcoredbg` (.NET)
 - **Tests:** [neotest](https://github.com/nvim-neotest/neotest) mit neotest-golang und neotest-dotnet
-- **Datei-/Git-Explorer:** neo-tree, gitsigns, neogit
-- **Finder:** fzf-lua
+- **Datei-/Git-Explorer:** neo-tree, gitsigns (`<leader>tb` Inline-Blame), neogit, [diffview.nvim](https://github.com/sindrets/diffview.nvim) (`<leader>gd` Projekt-Diff, `<leader>gh` File History), Lazygit (`<leader>gl`) für Rebases/Konflikte
+- **Finder:** fzf-lua (`<leader>fc` Command Palette, `<leader>fk` Keymap-Suche)
+- **[snacks.nvim](https://github.com/folke/snacks.nvim):** Zen Mode (`<leader>z`), Notifier, Dashboard, Rename-mit-Import-Update (`<leader>cR`, auch über neo-tree's Rename-Aktion), Reference-Highlighting + Sprung (`]]`/`[[`), Git-Browse (`<leader>gB`)
 - **Projekt-Switcher:** [neovim-project](https://github.com/coffebar/neovim-project) (`<leader>fp` Discover, `<leader>fP` Recent) – entdeckt Repos per Glob unter `~/RiderProjects`, `~/WebstormProjects`, `~/.config`, wechselt cwd und stellt die letzte Session wieder her
 - **Terminal:** [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim) (`<C-\>`) – schwebendes Terminal für nx/ng-Kommandos etc.
 - **Rider-Parität:**
@@ -24,7 +25,7 @@ Git-Integration, Fuzzy-Finder).
   - [inc-rename.nvim](https://github.com/smjonas/inc-rename.nvim) (`<leader>rn`) – Rename mit Live-Vorschau
   - [kulala.nvim](https://github.com/mistweaverco/kulala.nvim) (`.http`-Dateien, `<leader>Rs`) – HTTP-Client für die *-bff-Services
   - `<A-j>`/`<A-k>` – Zeile(n) verschieben
-- **Sonstiges:** treesitter, lualine, which-key, indent-blankline, Comment/autopairs/surround
+- **Sonstiges:** treesitter, lualine, which-key, indent-blankline, autopairs/surround (Kommentare `gc`/`gcc` kommen nativ aus Neovim-Core)
 
 Keybindings sind Standard-Vim-Motions; Debug-Keys orientieren sich an Rider (`F9` Continue, `F8` Step Over, `F7` Step Into, `Shift+F8` Step Out).
 
