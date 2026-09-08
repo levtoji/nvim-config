@@ -44,7 +44,11 @@ return {
           map("gI", vim.lsp.buf.implementation, "Goto Implementation")
           map("<leader>D", vim.lsp.buf.type_definition, "Type Definition")
           map("K", vim.lsp.buf.hover, "Hover Documentation")
-          map("<leader>rn", vim.lsp.buf.rename, "Rename")
+          -- inc-rename.nvim statt vim.lsp.buf.rename: zeigt live alle betroffenen
+          -- Stellen, während der neue Name getippt wird (wie Riders Rename-Dialog).
+          vim.keymap.set("n", "<leader>rn", function()
+            return ":IncRename " .. vim.fn.expand("<cword>")
+          end, { buffer = event.buf, expr = true, desc = "LSP: Rename" })
           map("<leader>ca", vim.lsp.buf.code_action, "Code Action")
           map("<leader>cf", function()
             vim.lsp.buf.format({ async = true })

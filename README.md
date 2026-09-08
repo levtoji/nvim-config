@@ -16,6 +16,14 @@ Git-Integration, Fuzzy-Finder).
 - **Finder:** fzf-lua
 - **Projekt-Switcher:** [neovim-project](https://github.com/coffebar/neovim-project) (`<leader>fp` Discover, `<leader>fP` Recent) – entdeckt Repos per Glob unter `~/RiderProjects`, `~/WebstormProjects`, `~/.config`, wechselt cwd und stellt die letzte Session wieder her
 - **Terminal:** [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim) (`<C-\>`) – schwebendes Terminal für nx/ng-Kommandos etc.
+- **Rider-Parität:**
+  - [harpoon](https://github.com/ThePrimeagen/harpoon) (`<leader>ma` Add, `<leader>mm` Menü, `<leader>1-4` Sprung) – bis zu 4 Dateien anpinnen
+  - [trouble.nvim](https://github.com/folke/trouble.nvim) (`<leader>xx` Diagnostics, `<leader>cs` Symbols, `<leader>cl` LSP) – Problems-Panel
+  - [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) (`af`/`if`, `ac`/`ic`, `ap`/`ip`, `]m`/`[m`) + [inc-select.nvim](https://github.com/maxischmaxi/inc-select.nvim) (`<C-Space>` wiederholt drücken zum Erweitern, `<M-Space>` zum Verkleinern) – Smart Selection
+  - [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) – Live-Template-artige Snippets über blink.cmp
+  - [inc-rename.nvim](https://github.com/smjonas/inc-rename.nvim) (`<leader>rn`) – Rename mit Live-Vorschau
+  - [kulala.nvim](https://github.com/mistweaverco/kulala.nvim) (`.http`-Dateien, `<leader>Rs`) – HTTP-Client für die *-bff-Services
+  - `<A-j>`/`<A-k>` – Zeile(n) verschieben
 - **Sonstiges:** treesitter, lualine, which-key, indent-blankline, Comment/autopairs/surround
 
 Keybindings sind Standard-Vim-Motions; Debug-Keys orientieren sich an Rider (`F9` Continue, `F8` Step Over, `F7` Step Into, `Shift+F8` Step Out).
