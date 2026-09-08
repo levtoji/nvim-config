@@ -13,6 +13,7 @@ return {
       hijack_netrw_behavior = "open_current",
     },
   },
+  cmd = "Neotree",
   keys = {
     { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle File Explorer" },
   },
