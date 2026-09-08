@@ -1,10 +1,14 @@
 return {
   {
     "williamboman/mason.nvim",
+    cmd = "Mason",
     opts = {},
   },
   {
     "neovim/nvim-lspconfig",
+    -- Lädt LSP-Setup erst beim Öffnen einer echten Datei statt bei jedem
+    -- nvim-Start (zieht mason + blink.cmp als Dependencies mit).
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "williamboman/mason.nvim",
       "saghen/blink.cmp",

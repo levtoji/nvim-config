@@ -7,6 +7,80 @@ return {
       "leoluz/nvim-dap-go",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
+    -- keys statt vim.keymap.set im config(): so laden dap/dapui/mason erst
+    -- beim ersten Debug-Keypress statt bei jedem nvim-Start.
+    keys = {
+      {
+        "<F9>",
+        function()
+          require("dap").continue()
+        end,
+        desc = "Debug: Continue",
+      },
+      {
+        "<F8>",
+        function()
+          require("dap").step_over()
+        end,
+        desc = "Debug: Step Over",
+      },
+      {
+        "<F7>",
+        function()
+          require("dap").step_into()
+        end,
+        desc = "Debug: Step Into",
+      },
+      {
+        "<S-F8>",
+        function()
+          require("dap").step_out()
+        end,
+        desc = "Debug: Step Out",
+      },
+      {
+        "<C-F8>",
+        function()
+          require("dap").toggle_breakpoint()
+        end,
+        desc = "Debug: Toggle Breakpoint",
+      },
+      {
+        "<leader>db",
+        function()
+          require("dap").toggle_breakpoint()
+        end,
+        desc = "Debug: Toggle Breakpoint",
+      },
+      {
+        "<leader>dB",
+        function()
+          require("dap").set_breakpoint(vim.fn.input("Breakpoint-Bedingung: "))
+        end,
+        desc = "Debug: Conditional Breakpoint",
+      },
+      {
+        "<leader>dr",
+        function()
+          require("dap").repl.open()
+        end,
+        desc = "Debug: Open REPL",
+      },
+      {
+        "<leader>du",
+        function()
+          require("dapui").toggle()
+        end,
+        desc = "Debug: Toggle UI",
+      },
+      {
+        "<leader>dt",
+        function()
+          require("dap").terminate()
+        end,
+        desc = "Debug: Terminate",
+      },
+    },
     config = function()
       -- delve (Go), netcoredbg (.NET-Debugger) und roslyn (C#-LSP-Server)
       -- gibt's nicht über brew core, daher lässt mason sie beim ersten Start installieren
@@ -17,6 +91,13 @@ return {
       local dap = require("dap")
       local dapui = require("dapui")
       local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"
+
+      -- Ohne das hier schickt nvim-dap beim Sessionstart kein
+      -- setExceptionBreakpoints an den Adapter, d.h. geworfene Exceptions
+      -- werden erst beim Programmende/Crash bemerkt statt sofort am Wurfpunkt.
+      -- "all" = netcoredbg bricht bei JEDER Exception ab, nicht erst bei unhandled.
+      dap.defaults.fallback.exception_breakpoints = "default"
+      dap.defaults.coreclr.exception_breakpoints = { "all" }
 
       dapui.setup()
 
@@ -51,20 +132,6 @@ return {
           end,
         },
       }
-
-      -- Rider-artige Debug-Keymaps
-      vim.keymap.set("n", "<F9>", dap.continue, { desc = "Debug: Continue" })
-      vim.keymap.set("n", "<F8>", dap.step_over, { desc = "Debug: Step Over" })
-      vim.keymap.set("n", "<F7>", dap.step_into, { desc = "Debug: Step Into" })
-      vim.keymap.set("n", "<S-F8>", dap.step_out, { desc = "Debug: Step Out" })
-      vim.keymap.set("n", "<C-F8>", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
-      vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
-      vim.keymap.set("n", "<leader>dB", function()
-        dap.set_breakpoint(vim.fn.input("Breakpoint-Bedingung: "))
-      end, { desc = "Debug: Conditional Breakpoint" })
-      vim.keymap.set("n", "<leader>dr", dap.repl.open, { desc = "Debug: Open REPL" })
-      vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Debug: Toggle UI" })
-      vim.keymap.set("n", "<leader>dt", dap.terminate, { desc = "Debug: Terminate" })
     end,
   },
 }

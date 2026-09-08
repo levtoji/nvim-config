@@ -1,6 +1,8 @@
 return {
   "saghen/blink.cmp",
   version = "1.*",
+  -- Lädt die Rust-Fuzzy-Matcher-Engine erst beim ersten Insert statt beim Start.
+  event = "InsertEnter",
   opts = {
     keymap = { preset = "default" },
     appearance = { nerd_font_variant = "mono" },

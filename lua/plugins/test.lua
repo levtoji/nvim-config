@@ -7,6 +7,52 @@ return {
     "fredrikaverpil/neotest-golang",
     "Issafalcon/neotest-dotnet",
   },
+  -- keys statt vim.keymap.set im config(): so laden Neotest + Go-/.NET-Adapter
+  -- erst beim ersten Testlauf statt bei jedem nvim-Start (spart ~40ms Startzeit).
+  keys = {
+    {
+      "<leader>tt",
+      function()
+        require("neotest").run.run()
+      end,
+      desc = "Test: Run Nearest",
+    },
+    {
+      "<leader>tf",
+      function()
+        require("neotest").run.run(vim.fn.expand("%"))
+      end,
+      desc = "Test: Run File",
+    },
+    {
+      "<leader>td",
+      function()
+        require("neotest").run.run({ strategy = "dap" })
+      end,
+      desc = "Test: Debug Nearest",
+    },
+    {
+      "<leader>ts",
+      function()
+        require("neotest").summary.toggle()
+      end,
+      desc = "Test: Toggle Summary",
+    },
+    {
+      "<leader>to",
+      function()
+        require("neotest").output.open({ enter = true })
+      end,
+      desc = "Test: Show Output",
+    },
+    {
+      "<leader>tO",
+      function()
+        require("neotest").output_panel.toggle()
+      end,
+      desc = "Test: Toggle Output Panel",
+    },
+  },
   config = function()
     require("neotest").setup({
       adapters = {
@@ -14,25 +60,5 @@ return {
         require("neotest-dotnet"),
       },
     })
-
-    local neotest = require("neotest")
-    vim.keymap.set("n", "<leader>tt", function()
-      neotest.run.run()
-    end, { desc = "Test: Run Nearest" })
-    vim.keymap.set("n", "<leader>tf", function()
-      neotest.run.run(vim.fn.expand("%"))
-    end, { desc = "Test: Run File" })
-    vim.keymap.set("n", "<leader>td", function()
-      neotest.run.run({ strategy = "dap" })
-    end, { desc = "Test: Debug Nearest" })
-    vim.keymap.set("n", "<leader>ts", function()
-      neotest.summary.toggle()
-    end, { desc = "Test: Toggle Summary" })
-    vim.keymap.set("n", "<leader>to", function()
-      neotest.output.open({ enter = true })
-    end, { desc = "Test: Show Output" })
-    vim.keymap.set("n", "<leader>tO", function()
-      neotest.output_panel.toggle()
-    end, { desc = "Test: Toggle Output Panel" })
   end,
 }
