@@ -5,7 +5,6 @@ return {
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
       "leoluz/nvim-dap-go",
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
     -- keys statt vim.keymap.set im config(): so laden dap/dapui/mason erst
     -- beim ersten Debug-Keypress statt bei jedem nvim-Start.
@@ -82,12 +81,8 @@ return {
       },
     },
     config = function()
-      -- delve (Go), netcoredbg (.NET-Debugger) und roslyn (C#-LSP-Server)
-      -- gibt's nicht über brew core, daher lässt mason sie beim ersten Start installieren
-      require("mason-tool-installer").setup({
-        ensure_installed = { "delve", "netcoredbg", "roslyn-language-server" },
-      })
-
+      -- delve/netcoredbg werden zentral von mason-tool-installer installiert,
+      -- siehe lsp.lua (mason.nvim config) - dort landen alle Mason-Tools gesammelt.
       local dap = require("dap")
       local dapui = require("dapui")
       local mason_bin = vim.fn.stdpath("data") .. "/mason/bin"

@@ -13,6 +13,11 @@ local parsers = {
   "markdown_inline",
   "bash",
   "query",
+  "typescript",
+  "html",
+  "scss",
+  "css",
+  "javascript",
 }
 
 -- Vim-Filetypes, für die Highlighting aktiviert werden soll.
@@ -31,6 +36,11 @@ local filetypes = {
   "markdown",
   "bash",
   "query",
+  "typescript",
+  "html",
+  "scss",
+  "css",
+  "javascript",
 }
 
 return {

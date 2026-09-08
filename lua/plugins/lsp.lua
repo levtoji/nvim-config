@@ -2,7 +2,23 @@ return {
   {
     "williamboman/mason.nvim",
     cmd = "Mason",
+    dependencies = { "WhoIsSethDaniel/mason-tool-installer.nvim" },
     opts = {},
+    -- Zentrale Stelle für alle Tools, die es nicht über brew/npm core gibt -
+    -- Debug-Adapter (dap.lua) und Sprachserver landen hier gemeinsam, damit
+    -- nicht zwei Plugins gegeneinander mason-tool-installer.setup() aufrufen.
+    config = function(_, opts)
+      require("mason").setup(opts)
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "delve",
+          "netcoredbg",
+          "roslyn-language-server",
+          "typescript-language-server",
+          "angular-language-server",
+        },
+      })
+    end,
   },
   {
     "neovim/nvim-lspconfig",
@@ -57,6 +73,11 @@ return {
         },
       })
       vim.lsp.enable("gopls")
+
+      -- TypeScript/Angular (agent-portal & Co, Nx-Monorepo): ts_ls für die
+      -- Sprache, angularls zusätzlich für Angular-Templates/Komponenten.
+      -- Root-Erkennung (u.a. über nx.json) übernimmt nvim-lspconfig selbst.
+      vim.lsp.enable({ "ts_ls", "angularls" })
     end,
   },
   {
