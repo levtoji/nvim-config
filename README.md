@@ -66,7 +66,7 @@ init.lua              -- Bootstrap, lädt config/ und lazy.nvim
 lua/config/
   options.lua          -- Editor-Optionen
   keymaps.lua           -- allgemeine Keymaps
-  autocmds.lua           -- Autocommands (u.a. Go-Formatierung on save)
+  autocmds.lua           -- Autocommands (u.a. Go-Formatierung on save, 2-Space-Default für Web-Stack)
   lsp_inlay_hint_fix.lua   -- Workaround für einen Inlay-Hint-Bug in nvim 0.12
   lazy.lua                  -- lazy.nvim-Bootstrap
 lua/plugins/

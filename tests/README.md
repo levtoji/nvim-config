@@ -29,7 +29,7 @@ Quelltext.
 |---|---|
 | `options_spec.lua` | `config/options.lua`: Leader, Editor-Optionen, Indent-Defaults, `listchars` |
 | `keymaps_spec.lua` | `config/keymaps.lua`: jedes Mapping mit Modus und Beschreibung |
-| `autocmds_spec.lua` | `config/autocmds.lua`: Gruppe, Yank-Highlight, Go-Tabs (Effekt, nicht nur Existenz), Format-on-Save |
+| `autocmds_spec.lua` | `config/autocmds.lua`: Gruppe, Yank-Highlight, Go-Tabs, Web-Stack-2-Space-Default inkl. Vorrang von `.editorconfig` (Effekt, nicht nur Existenz), Format-on-Save |
 | `lazy_spec.lua` | `config/lazy.lua` + `lazy-lock.json` (gültiges JSON, jeder Eintrag mit Commit) |
 | `plugin_specs_spec.lua` | **alle** `lua/plugins/*.lua` generisch: lädt fehlerfrei, gültige lazy-Spec, nur bekannte lazy-Felder (fängt Tippfehler, die lazy sonst still ignoriert), `owner/repo`-Format, jedes Keymap mit `desc`, keine doppelten Plugins, keine Kollision mit den globalen Keymaps |
 | `lsp_spec.lua` | `plugins/lsp.lua`: Server, Mason-Tools, Lazy-Loading, Inlay-Hint-Aktivierung |
