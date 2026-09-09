@@ -69,6 +69,7 @@ return {
     { "<leader>H", function() Snacks.dashboard() end, desc = "Dashboard" },
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse (im Browser öffnen)" },
     { "<leader>gl", function() Snacks.lazygit() end, desc = "Lazygit" },
+    { "<leader>gc", function() Snacks.picker.git_branches() end, desc = "Git Branch Checkout" },
     { "<leader>gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (offen)" },
     { "<leader>gI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (alle)" },
     { "<leader>gp", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (offen)" },
