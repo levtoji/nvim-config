@@ -11,7 +11,7 @@ return {
     -- aus: kollidiert mit neovim-project's Session-Autoload, das hat Vorrang.
     dashboard = { enabled = false },
     -- LSP-Rename für Dateien inkl. Import-Update; hookt sich automatisch in
-    -- neo-tree's rename-Aktion ein (siehe snacks/rename.lua meta.desc).
+    -- den Explorer-Picker ein (siehe snacks/explorer/actions.lua explorer_rename).
     rename = { enabled = true },
     -- Highlightet automatisch alle Referenzen des Symbols unter dem Cursor,
     -- ]]/[[ zum Springen zwischen den Vorkommen.
@@ -22,12 +22,25 @@ return {
     -- toggleterm-Eigenlösung; Bonus ggü. der: Auto-Theme passend zum
     -- Colorscheme + Edit-Integration mit der laufenden nvim-Instanz.
     lazygit = { enabled = true },
+    -- Datei-Explorer als Sidebar, ersetzt neo-tree (weniger Dependencies:
+    -- kein plenary/nui.nvim mehr nur dafür). replace_netrw wie bisher bei
+    -- neo-tree: Öffnet sich automatisch, wenn ein Verzeichnis geöffnet wird.
+    explorer = { replace_netrw = true },
+    picker = {
+      sources = {
+        explorer = {
+          follow_file = true,
+          layout = { layout = { position = "left" } },
+        },
+      },
+    },
   },
   keys = {
     { "<leader>z", function() Snacks.zen() end, desc = "Zen Mode" },
     { "<leader>H", function() Snacks.dashboard() end, desc = "Dashboard" },
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse (im Browser öffnen)" },
     { "<leader>gl", function() Snacks.lazygit() end, desc = "Lazygit" },
+    { "<leader>e", function() Snacks.explorer() end, desc = "Toggle File Explorer" },
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File (mit Import-Update)" },
     {
       "]]",
