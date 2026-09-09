@@ -41,13 +41,14 @@ describe("plugins.lsp", function()
       "typescript-language-server",
       "angular-language-server",
       "eslint-lsp",
+      "lua-language-server",
     }) do
       truthy(src:find(tool, 1, true), ("mason-tool-installer kennt '%s' nicht"):format(tool))
     end
   end)
 
   it("aktiviert die konfigurierten Sprachserver", function()
-    for _, server in ipairs({ "gopls", "ts_ls", "angularls", "eslint" }) do
+    for _, server in ipairs({ "gopls", "ts_ls", "angularls", "eslint", "lua_ls" }) do
       truthy(
         src:find('vim.lsp.enable("' .. server .. '")', 1, true)
           or src:find('"' .. server .. '"', 1, true),

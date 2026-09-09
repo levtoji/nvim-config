@@ -17,6 +17,7 @@ return {
           "typescript-language-server",
           "angular-language-server",
           "eslint-lsp",
+          "lua-language-server",
         },
       })
     end,
@@ -114,6 +115,20 @@ return {
 
       -- ESLint-Diagnostics inline (erkennt Monorepo-Configs & .eslintrc/eslint.config.* automatisch)
       vim.lsp.enable("eslint")
+
+      -- Lua (fuer diese Config selbst): "vim" und "Snacks" als bekannte
+      -- Globals eintragen, sonst meldet lua_ls jedes vim.*/Snacks.* als
+      -- "undefined global" ("Snacks" wird von snacks.nvim zur Laufzeit
+      -- global gesetzt, siehe lua/plugins/*.lua-Verwendung).
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            diagnostics = { globals = { "vim", "Snacks" } },
+            hint = { enable = true },
+          },
+        },
+      })
+      vim.lsp.enable("lua_ls")
     end,
   },
   {
