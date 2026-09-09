@@ -14,9 +14,9 @@ Git-Integration, Fuzzy-Finder).
 - **Tests:** [neotest](https://github.com/nvim-neotest/neotest) mit neotest-golang und neotest-dotnet
 - **Datei-/Git-Explorer:** Snacks Explorer (`<leader>e`, ersetzt netrw), gitsigns (`<leader>tb` Inline-Blame), neogit, [diffview.nvim](https://github.com/sindrets/diffview.nvim) (`<leader>gd` Projekt-Diff, `<leader>gh` File History), Lazygit (`<leader>gl`) für Rebases/Konflikte
 - **Finder:** Snacks Picker (`<leader>fc` Command Palette, `<leader>fk` Keymap-Suche)
-- **[snacks.nvim](https://github.com/folke/snacks.nvim):** Zen Mode (`<leader>z`), Notifier, Dashboard on-demand (`<leader>H`, nicht automatisch beim Start - das macht neovim-project's Session-Autoload), File Explorer (`<leader>e`), Lazygit (`<leader>gl`), Rename-mit-Import-Update (`<leader>cR`, auch über den Explorer's Rename-Aktion), Reference-Highlighting + Sprung (`]]`/`[[`), Git-Browse (`<leader>gB`)
+- **[snacks.nvim](https://github.com/folke/snacks.nvim):** Zen Mode (`<leader>z`), Notifier, Dashboard on-demand (`<leader>H`, nicht automatisch beim Start - das macht neovim-project's Session-Autoload), Indent Guides, Finder/Picker (`<leader>f*`), File Explorer (`<leader>e`), Terminal (`<C-\>`), Lazygit (`<leader>gl`), Rename-mit-Import-Update (`<leader>cR`, auch über den Explorer's Rename-Aktion), Reference-Highlighting + Sprung (`]]`/`[[`), Git-Browse (`<leader>gB`)
 - **Projekt-Switcher:** [neovim-project](https://github.com/coffebar/neovim-project) (`<leader>fp` Discover, `<leader>fP` Recent) – entdeckt Repos per Glob unter `~/RiderProjects`, `~/WebstormProjects`, `~/.config`, wechselt cwd und stellt die letzte Session wieder her
-- **Terminal:** [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim) (`<C-\>`) – schwebendes Terminal für nx/ng-Kommandos etc.
+- **Terminal:** Snacks Terminal (`<C-\>`) – schwebendes Terminal für nx/ng-Kommandos etc.
 - **Rider-Parität:**
   - [harpoon](https://github.com/ThePrimeagen/harpoon) (`<leader>ma` Add, `<leader>mm` Menü, `<leader>1-4` Sprung) – bis zu 4 Dateien anpinnen
   - [trouble.nvim](https://github.com/folke/trouble.nvim) (`<leader>xx` Diagnostics, `<leader>cs` Symbols, `<leader>cl` LSP) – Problems-Panel
@@ -25,7 +25,7 @@ Git-Integration, Fuzzy-Finder).
   - [inc-rename.nvim](https://github.com/smjonas/inc-rename.nvim) (`<leader>rn`) – Rename mit Live-Vorschau
   - [kulala.nvim](https://github.com/mistweaverco/kulala.nvim) (`.http`-Dateien, `<leader>Rs`) – HTTP-Client für die *-bff-Services
   - `<A-j>`/`<A-k>` – Zeile(n) verschieben
-- **Sonstiges:** treesitter, lualine, which-key, indent-blankline, autopairs/surround (Kommentare `gc`/`gcc` kommen nativ aus Neovim-Core)
+- **Sonstiges:** treesitter, lualine, which-key, autopairs/surround (Kommentare `gc`/`gcc` kommen nativ aus Neovim-Core)
 
 Keybindings sind Standard-Vim-Motions; Debug-Keys orientieren sich an Rider (`F9` Continue, `F8` Step Over, `F7` Step Into, `Shift+F8` Step Out).
 

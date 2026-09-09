@@ -1,6 +1,5 @@
 -- snacks.nvim war bisher nur ein stiller Dependency von claudecode.nvim - hier
--- wird es tatsächlich konfiguriert. indent ist bewusst NICHT aktiviert, das
--- übernimmt schon indent-blankline.nvim (sonst zwei konkurrierende Guides).
+-- wird es tatsächlich konfiguriert.
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -8,6 +7,9 @@ return {
   opts = {
     zen = { enabled = true },
     notifier = { enabled = true },
+    -- Ersetzt indent-blankline.nvim: gleiche Guides, zusätzlich Scope-
+    -- Highlighting + dezente Animation, eine Dependency weniger.
+    indent = { enabled = true },
     -- aus: kollidiert mit neovim-project's Session-Autoload, das hat Vorrang.
     dashboard = { enabled = false },
     -- LSP-Rename für Dateien inkl. Import-Update; hookt sich automatisch in
@@ -22,6 +24,11 @@ return {
     -- toggleterm-Eigenlösung; Bonus ggü. der: Auto-Theme passend zum
     -- Colorscheme + Edit-Integration mit der laufenden nvim-Instanz.
     lazygit = { enabled = true },
+    -- Schwebendes Terminal für nx/ng-Kommandos etc., ersetzt toggleterm.nvim
+    -- (eine Dependency weniger, gleiche Optik wie Lazygit/Explorer-Floats).
+    terminal = {
+      win = { style = "float", border = "rounded" },
+    },
     -- Datei-Explorer als Sidebar, ersetzt neo-tree (weniger Dependencies:
     -- kein plenary/nui.nvim mehr nur dafür). replace_netrw wie bisher bei
     -- neo-tree: Öffnet sich automatisch, wenn ein Verzeichnis geöffnet wird.
@@ -41,6 +48,7 @@ return {
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse (im Browser öffnen)" },
     { "<leader>gl", function() Snacks.lazygit() end, desc = "Lazygit" },
     { "<leader>e", function() Snacks.explorer() end, desc = "Toggle File Explorer" },
+    { [[<c-\>]], function() Snacks.terminal.toggle() end, mode = { "n", "t" }, desc = "Toggle Terminal" },
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File (mit Import-Update)" },
     -- Finder (ersetzt fzf-lua, weniger Dependencies):
     { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },

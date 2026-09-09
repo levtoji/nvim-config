@@ -9,9 +9,4 @@ return {
     event = "VeryLazy",
     opts = {},
   },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    opts = {},
-  },
 }
