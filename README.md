@@ -67,7 +67,26 @@ lua/config/
   options.lua          -- Editor-Optionen
   keymaps.lua           -- allgemeine Keymaps
   autocmds.lua           -- Autocommands (u.a. Go-Formatierung on save)
-  lazy.lua                -- lazy.nvim-Bootstrap
+  lsp_inlay_hint_fix.lua   -- Workaround für einen Inlay-Hint-Bug in nvim 0.12
+  lazy.lua                  -- lazy.nvim-Bootstrap
 lua/plugins/
-  *.lua                    -- ein Modul pro Plugin/Bereich
+  *.lua                      -- ein Modul pro Plugin/Bereich
+tests/
+  run.sh                      -- Testlauf, siehe tests/README.md
 ```
+
+## Tests
+
+```sh
+tests/run.sh          # alles
+tests/run.sh unit     # nur Komponententests (isoliert, ~2 s)
+tests/run.sh e2e      # nur End-to-End gegen die echte Config
+```
+
+Jede Komponente unter `lua/config/` und `lua/plugins/` hat einen eigenen Spec,
+dazu kommen E2E-Tests, die die echte Config starten und echtes Editieren
+durchspielen. Details in [`tests/README.md`](tests/README.md).
+
+Sinnvoll nach jedem `brew upgrade neovim` und vor jedem Commit an der Config:
+die Specs prüfen unter anderem, ob alle verwendeten `vim.*`-APIs in der
+laufenden Neovim-Version noch existieren.

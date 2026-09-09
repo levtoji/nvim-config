@@ -1,4 +1,6 @@
 require("config.options")
 require("config.keymaps")
 require("config.autocmds")
+-- Muss vor dem ersten LSP-Client installiert sein (siehe Kommentar im Modul)
+require("config.lsp_inlay_hint_fix")
 require("config.lazy")
