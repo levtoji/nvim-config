@@ -39,17 +39,48 @@ return {
           follow_file = true,
           layout = { layout = { position = "left" } },
         },
+        -- Requirements für gh_issue/gh_pr: `gh` CLI installiert + eingeloggt.
+        gh_issue = {},
+        gh_pr = {},
       },
     },
+    -- Schützt vor Freezes bei riesigen/minifizierten Dateien: deaktiviert
+    -- LSP/Treesitter automatisch, sobald eine Datei zu groß ist.
+    bigfile = { enabled = true },
+    -- Kombinierte Gutter-Spalte (Marks/Signs/Folds/Git), ersetzt nichts,
+    -- nutzt aber automatisch gitsigns' Signs (Pattern "GitSign").
+    statuscolumn = { enabled = true },
+    -- Smooth Scrolling.
+    scroll = { enabled = true },
+    -- Fokus-Dimming: dimmt alles außer dem aktuellen Scope, <leader>uD zum
+    -- Toggle. Ergänzt das Scope-Highlighting von snacks.indent.
+    dim = {},
+    -- GitHub Issues/PRs direkt in nvim browsen, kommentieren, mergen etc.
+    -- Setzt die `gh`-CLI voraus (installiert + `gh auth login`).
+    gh = { enabled = true },
+    -- Schöneres vim.ui.input (u.a. für Snacks.rename's Dateiname-Prompt).
+    input = { enabled = true },
+    -- Scratch-Buffer für schnelle Notizen/Code-Experimente, <leader>. Toggle,
+    -- <leader>S wählt einen bestehenden Scratch-Buffer aus.
+    scratch = {},
   },
   keys = {
     { "<leader>z", function() Snacks.zen() end, desc = "Zen Mode" },
     { "<leader>H", function() Snacks.dashboard() end, desc = "Dashboard" },
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse (im Browser öffnen)" },
     { "<leader>gl", function() Snacks.lazygit() end, desc = "Lazygit" },
+    { "<leader>gi", function() Snacks.picker.gh_issue() end, desc = "GitHub Issues (offen)" },
+    { "<leader>gI", function() Snacks.picker.gh_issue({ state = "all" }) end, desc = "GitHub Issues (alle)" },
+    { "<leader>gp", function() Snacks.picker.gh_pr() end, desc = "GitHub Pull Requests (offen)" },
+    { "<leader>gP", function() Snacks.picker.gh_pr({ state = "all" }) end, desc = "GitHub Pull Requests (alle)" },
     { "<leader>e", function() Snacks.explorer() end, desc = "Toggle File Explorer" },
     { [[<c-\>]], function() Snacks.terminal.toggle() end, mode = { "n", "t" }, desc = "Toggle Terminal" },
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File (mit Import-Update)" },
+    { "<leader>uD", function() Snacks.dim() end, desc = "Toggle Dim (Fokus auf Scope)" },
+    { "<leader>.", function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+    { "<leader>S", function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+    { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+    { "<leader>bo", function() Snacks.bufdelete.other() end, desc = "Delete Other Buffers" },
     -- Finder (ersetzt fzf-lua, weniger Dependencies):
     { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
     { "<leader>fg", function() Snacks.picker.grep() end, desc = "Live Grep" },
