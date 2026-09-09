@@ -17,11 +17,17 @@ return {
     -- ]]/[[ zum Springen zwischen den Vorkommen.
     words = { enabled = true },
     gitbrowse = { enabled = true },
+    -- Lazygit als schwebendes Terminal: Neogit bleibt Standard, Lazygit für
+    -- Rebases/Merge-Konflikte, wo es die bessere UI hat. Ersetzt die frühere
+    -- toggleterm-Eigenlösung; Bonus ggü. der: Auto-Theme passend zum
+    -- Colorscheme + Edit-Integration mit der laufenden nvim-Instanz.
+    lazygit = { enabled = true },
   },
   keys = {
     { "<leader>z", function() Snacks.zen() end, desc = "Zen Mode" },
     { "<leader>H", function() Snacks.dashboard() end, desc = "Dashboard" },
     { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Git Browse (im Browser öffnen)" },
+    { "<leader>gl", function() Snacks.lazygit() end, desc = "Lazygit" },
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File (mit Import-Update)" },
     {
       "]]",
