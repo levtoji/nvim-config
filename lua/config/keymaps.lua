@@ -16,8 +16,19 @@ map("v", "<", "<gv", { desc = "Indent left, keep selection" })
 map("v", ">", ">gv", { desc = "Indent right, keep selection" })
 
 -- Diagnostics
-map("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
-map("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+-- vim.diagnostic.goto_prev/goto_next sind seit Neovim 0.12 deprecated
+-- (Removal in 0.13) - vim.diagnostic.jump() ist der Ersatz. on_jump statt
+-- des ebenfalls deprecateten opts.float repliziert das bisherige Verhalten
+-- (Float mit der Diagnose beim Sprung), s. vim.diagnostic.goto_next-Quelle.
+local function open_diagnostic_float(_, bufnr)
+  vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor" })
+end
+map("n", "[d", function()
+  vim.diagnostic.jump({ count = -1, on_jump = open_diagnostic_float })
+end, { desc = "Previous diagnostic" })
+map("n", "]d", function()
+  vim.diagnostic.jump({ count = 1, on_jump = open_diagnostic_float })
+end, { desc = "Next diagnostic" })
 map("n", "<leader>xl", vim.diagnostic.setloclist, { desc = "Diagnostics to loclist" })
 
 -- Zeilen verschieben (Rider: Alt+Shift+Up/Down). <A-Up>/<A-Down> werden von

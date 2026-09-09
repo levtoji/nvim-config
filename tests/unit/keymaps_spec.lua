@@ -55,11 +55,34 @@ describe("config.keymaps", function()
   it("nutzt nur Neovim-APIs, die es in dieser Version noch gibt", function()
     -- Faengt Deprecations, die nach einem nvim-Upgrade zu Laufzeitfehlern werden.
     for _, path in ipairs({
-      "vim.diagnostic.goto_prev",
-      "vim.diagnostic.goto_next",
+      "vim.diagnostic.jump",
       "vim.diagnostic.setloclist",
     }) do
       truthy(T.api_exists(path), path .. " existiert nicht mehr")
     end
+  end)
+
+  it("[d/]d loesen keine vim.deprecate-Warnung aus", function()
+    -- Regression: goto_prev/goto_next sind seit 0.12 deprecated (Removal
+    -- 0.13) und feuern bei jedem Aufruf eine Warnung - vim.diagnostic.jump()
+    -- muss ohne deprecateten Pfad (auch nicht ueber opts.float) aufgerufen werden.
+    local original = vim.deprecate
+    local called = {}
+    vim.deprecate = function(name, ...)
+      table.insert(called, name)
+      return original(name, ...)
+    end
+
+    local ok, err = pcall(function()
+      for _, lhs in ipairs({ "[d", "]d" }) do
+        local m = mapping("n", lhs)
+        truthy(m, ("Mapping %s fehlt"):format(lhs))
+        no_error(m.callback, ("Aufruf von %s"):format(lhs))
+      end
+    end)
+
+    vim.deprecate = original
+    truthy(ok, err)
+    eq(called, {}, "vim.deprecate wurde aufgerufen: " .. vim.inspect(called))
   end)
 end)

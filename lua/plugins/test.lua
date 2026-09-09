@@ -54,10 +54,15 @@ return {
     },
   },
   config = function()
+    -- Beide Adapter-Module muessen als Funktion aufgerufen werden (siehe
+    -- deren setmetatable __call), sonst bleibt z.B. bei neotest-golang
+    -- Adapter.options nil und filter_dir() stuerzt beim Discovery-Scan mit
+    -- "attempt to index field 'options' (a nil value)" ab, sobald cwd kein
+    -- Go-Projekt ist (z.B. dieses Config-Repo selbst).
     require("neotest").setup({
       adapters = {
-        require("neotest-golang"),
-        require("neotest-dotnet"),
+        require("neotest-golang")({}),
+        require("neotest-dotnet")({}),
       },
     })
   end,
