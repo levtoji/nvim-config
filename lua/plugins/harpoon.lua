@@ -1,5 +1,6 @@
 -- Harpoon: bis zu 4 Dateien fest anpinnen, mit einem Tastendruck dorthin
--- springen - schneller als fzf-lua für Dateien, die du gerade ständig wechselst.
+-- springen - schneller als der Picker für Dateien, die du gerade ständig
+-- wechselst.
 return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",

@@ -12,7 +12,7 @@ return {
       "~/.config/*",
     },
     picker = {
-      type = "fzf-lua",
+      type = "snacks",
     },
   },
   init = function()
@@ -20,7 +20,7 @@ return {
   end,
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "ibhagwan/fzf-lua",
+    "folke/snacks.nvim",
     "Shatur/neovim-session-manager",
   },
   lazy = false,

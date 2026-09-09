@@ -42,6 +42,16 @@ return {
     { "<leader>gl", function() Snacks.lazygit() end, desc = "Lazygit" },
     { "<leader>e", function() Snacks.explorer() end, desc = "Toggle File Explorer" },
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File (mit Import-Update)" },
+    -- Finder (ersetzt fzf-lua, weniger Dependencies):
+    { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
+    { "<leader>fg", function() Snacks.picker.grep() end, desc = "Live Grep" },
+    { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Find Buffers" },
+    { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent Files" },
+    { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = "Document Symbols" },
+    { "<leader>fw", function() Snacks.picker.lsp_workspace_symbols() end, desc = "Workspace Symbols" },
+    { "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, desc = "Diagnostics" },
+    { "<leader>fc", function() Snacks.picker.commands() end, desc = "Command Palette" },
+    { "<leader>fk", function() Snacks.picker.keymaps() end, desc = "Search Keymaps" },
     {
       "]]",
       function() Snacks.words.jump(vim.v.count1, true) end,
