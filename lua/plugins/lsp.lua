@@ -32,6 +32,18 @@ return {
       "saghen/blink.cmp",
     },
     config = function()
+      -- Roslyn escaped beim Konvertieren von XML-Doc-Kommentaren nach Markdown
+      -- Satzpunkte als "\." (verhindert, dass z.B. "1." als Markdown-Listenpunkt
+      -- interpretiert wird) - Neovim zeigt diese Escapes im Hover-Popup aber
+      -- roh an, statt sie zu verarbeiten. Vor dem Rendern wieder entfernen.
+      local default_hover = vim.lsp.handlers["textDocument/hover"]
+      vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
+        if result and result.contents and type(result.contents) == "table" and result.contents.value then
+          result.contents.value = result.contents.value:gsub("\\([%.%-_])", "%1")
+        end
+        return default_hover(err, result, ctx, config)
+      end
+
       -- Einheitliche Keymaps für jeden LSP-Server, der an einen Buffer attached
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
