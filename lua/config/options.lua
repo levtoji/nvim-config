@@ -22,6 +22,9 @@ opt.inccommand = "split"
 opt.cursorline = true
 opt.scrolloff = 8
 opt.termguicolors = true
+-- Sichtbare Border für alle Floating-Windows (Hover, Signature-Help, Diagnostics, ...),
+-- da NormalFloat-Hintergrund sich in tokyonight-storm kaum vom normalen Hintergrund abhebt
+opt.winborder = "rounded"
 
 -- 4 Spaces als Default (C#-Konvention), Go wird per FileType-Autocmd auf Tabs umgestellt
 opt.expandtab = true
