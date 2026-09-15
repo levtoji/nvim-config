@@ -155,6 +155,19 @@ return {
           processId = require("dap.utils").pick_process,
           cwd = "${workspaceFolder}",
         },
+        {
+          -- Fallback fuer Projekte ohne launch.json: statt jedes Mal Terminal
+          -- + "npm run ..." zu tippen, hier den Skriptnamen einmal abfragen.
+          type = "pwa-node",
+          request = "launch",
+          name = "npm run <script>",
+          runtimeExecutable = "npm",
+          runtimeArgs = function()
+            return { "run", vim.fn.input("npm-Script (package.json): ") }
+          end,
+          cwd = "${workspaceFolder}",
+          console = "integratedTerminal",
+        },
       }
       dap.configurations.javascript = vim.deepcopy(dap.configurations.typescript)
 
