@@ -157,15 +157,11 @@ return {
         },
       })
       vim.lsp.enable("lua_ls")
-    end,
-  },
-  {
-    -- Microsofts offizieller Roslyn-LSP statt OmniSharp: schneller, aktiv gepflegt,
-    -- bessere Code-Fixes/Refactorings. Lädt den Roslyn-Server beim ersten Start selbst.
-    "seblyng/roslyn.nvim",
-    ft = "cs",
-    opts = {
-      config = {
+
+      -- roslyn.nvim leitet `opts` nur an roslyn.config.setup() weiter (filewatching,
+      -- choose_target, broad_search, ...) - LSP-`settings` müssen wie bei den anderen
+      -- Servern hier über vim.lsp.config() gesetzt werden, sonst verpuffen sie wirkungslos.
+      vim.lsp.config("roslyn", {
         settings = {
           ["csharp|inlay_hints"] = {
             csharp_enable_inlay_hints_for_implicit_variable_types = true,
@@ -180,7 +176,13 @@ return {
             dotnet_compiler_diagnostics_scope = "openFiles",
           },
         },
-      },
-    },
+      })
+    end,
+  },
+  {
+    -- Microsofts offizieller Roslyn-LSP statt OmniSharp: schneller, aktiv gepflegt,
+    -- bessere Code-Fixes/Refactorings. Lädt den Roslyn-Server beim ersten Start selbst.
+    "seblyng/roslyn.nvim",
+    ft = "cs",
   },
 }
