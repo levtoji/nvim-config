@@ -127,6 +127,64 @@ return {
           end,
         },
       }
+
+      -- Node/TypeScript (agent-portal & Co.) ueber vscode-js-debug. "pwa-node"
+      -- ist der type, den VS Code's launch.json fuer Node-Launches verwendet -
+      -- gleicher Adapter-Name macht bestehende launch.json-Dateien direkt kompatibel.
+      dap.adapters["pwa-node"] = {
+        type = "server",
+        host = "localhost",
+        port = "${port}",
+        executable = {
+          command = mason_bin .. "/js-debug-adapter",
+          args = { "${port}" },
+        },
+      }
+      dap.configurations.typescript = {
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Launch file",
+          program = "${file}",
+          cwd = "${workspaceFolder}",
+        },
+        {
+          type = "pwa-node",
+          request = "attach",
+          name = "Attach to process",
+          processId = require("dap.utils").pick_process,
+          cwd = "${workspaceFolder}",
+        },
+      }
+      dap.configurations.javascript = vim.deepcopy(dap.configurations.typescript)
+
+      -- Projekt-eigene Run/Debug-Configs (Rider-Paritaet): liest
+      -- .vscode/launch.json aus dem cwd und haengt die Eintraege an die
+      -- obigen Fallback-Configs an. load_launchjs() ADDIERT nur (loescht nie),
+      -- deshalb vor jedem Reload auf die hier definierten Basis-Configs
+      -- zuruecksetzen - sonst haeufen sich beim Projektwechsel (neovim-project
+      -- setzt cwd) Configs aus vorherigen Repos an.
+      local base_configurations = {
+        cs = vim.deepcopy(dap.configurations.cs),
+        go = vim.deepcopy(dap.configurations.go),
+        typescript = vim.deepcopy(dap.configurations.typescript),
+        javascript = vim.deepcopy(dap.configurations.javascript),
+      }
+      local function reload_launchjs()
+        for ft, base in pairs(base_configurations) do
+          dap.configurations[ft] = vim.deepcopy(base)
+        end
+        require("dap.ext.vscode").load_launchjs(nil, {
+          ["pwa-node"] = { "typescript", "javascript" },
+          coreclr = { "cs" },
+          go = { "go" },
+        })
+      end
+      reload_launchjs()
+      vim.api.nvim_create_autocmd("DirChanged", {
+        group = vim.api.nvim_create_augroup("dap-launchjs-reload", { clear = true }),
+        callback = reload_launchjs,
+      })
     end,
   },
 }

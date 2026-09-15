@@ -13,6 +13,7 @@ return {
         ensure_installed = {
           "delve",
           "netcoredbg",
+          "js-debug-adapter",
           "roslyn-language-server",
           "typescript-language-server",
           "angular-language-server",
