@@ -171,33 +171,10 @@ return {
       }
       dap.configurations.javascript = vim.deepcopy(dap.configurations.typescript)
 
-      -- Projekt-eigene Run/Debug-Configs (Rider-Paritaet): liest
-      -- .vscode/launch.json aus dem cwd und haengt die Eintraege an die
-      -- obigen Fallback-Configs an. load_launchjs() ADDIERT nur (loescht nie),
-      -- deshalb vor jedem Reload auf die hier definierten Basis-Configs
-      -- zuruecksetzen - sonst haeufen sich beim Projektwechsel (neovim-project
-      -- setzt cwd) Configs aus vorherigen Repos an.
-      local base_configurations = {
-        cs = vim.deepcopy(dap.configurations.cs),
-        go = vim.deepcopy(dap.configurations.go),
-        typescript = vim.deepcopy(dap.configurations.typescript),
-        javascript = vim.deepcopy(dap.configurations.javascript),
-      }
-      local function reload_launchjs()
-        for ft, base in pairs(base_configurations) do
-          dap.configurations[ft] = vim.deepcopy(base)
-        end
-        require("dap.ext.vscode").load_launchjs(nil, {
-          ["pwa-node"] = { "typescript", "javascript" },
-          coreclr = { "cs" },
-          go = { "go" },
-        })
-      end
-      reload_launchjs()
-      vim.api.nvim_create_autocmd("DirChanged", {
-        group = vim.api.nvim_create_augroup("dap-launchjs-reload", { clear = true }),
-        callback = reload_launchjs,
-      })
+      -- Projekt-eigene Run/Debug-Configs (Rider-Paritaet): der eingebaute
+      -- "dap.launch.json"-Provider liest .vscode/launch.json aus dem cwd bei
+      -- JEDEM F9 automatisch frisch (kein manuelles Neuladen noetig) und
+      -- zeigt die Eintraege zusammen mit den obigen Fallbacks zur Auswahl an.
     end,
   },
 }
