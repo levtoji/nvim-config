@@ -75,6 +75,21 @@ return {
           if client and client:supports_method("textDocument/inlayHint") then
             vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
           end
+
+          -- roslyn.nvim startet für Razor-Projekte einen dotnet-Build-Server
+          -- (rzc.dll) im Hintergrund, der auch nach dem Schließen der Solution
+          -- weiterläuft (siehe DEV-Vorfall 2026-09-15: rzc hing sich auf und lief
+          -- über eine Stunde mit 120%+ CPU, verwaist unter launchd). Beim Verlassen
+          -- von nvim räumen wir deshalb einmalig auf.
+          if client and client.name == "roslyn" then
+            vim.api.nvim_create_autocmd("VimLeavePre", {
+              group = vim.api.nvim_create_augroup("roslyn-build-server-cleanup", { clear = true }),
+              once = true,
+              callback = function()
+                vim.system({ "dotnet", "build-server", "shutdown" }, { timeout = 5000 })
+              end,
+            })
+          end
         end,
       })
 
@@ -155,6 +170,14 @@ return {
           ["csharp|inlay_hints"] = {
             csharp_enable_inlay_hints_for_implicit_variable_types = true,
             csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+          },
+          -- "fullSolution" analysiert beim Öffnen einer Datei die komplette
+          -- Solution (inkl. Razor-Design-Time-Builds in allen Projekten) statt
+          -- nur der offenen Dateien - bei großen Solutions wie market-communication
+          -- unnötig teuer und war an dem rzc-Hänger vom 2026-09-15 beteiligt.
+          ["csharp|background_analysis"] = {
+            dotnet_analyzer_diagnostics_scope = "openFiles",
+            dotnet_compiler_diagnostics_scope = "openFiles",
           },
         },
       },
