@@ -24,7 +24,7 @@ Git-Integration, Fuzzy-Finder).
   - [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) (`af`/`if`, `ac`/`ic`, `ap`/`ip`, `]m`/`[m`) + [inc-select.nvim](https://github.com/maxischmaxi/inc-select.nvim) (`<C-Space>` wiederholt drücken zum Erweitern, `<M-Space>` zum Verkleinern) – Smart Selection
   - [friendly-snippets](https://github.com/rafamadriz/friendly-snippets) – Live-Template-artige Snippets über blink.cmp
   - [inc-rename.nvim](https://github.com/smjonas/inc-rename.nvim) (`<leader>rn`) – Rename mit Live-Vorschau
-  - [kulala.nvim](https://github.com/mistweaverco/kulala.nvim) (`.http`-Dateien, `<leader>Rs`) – HTTP-Client für die *-bff-Services
+  - [nvim-httpyac](https://github.com/abidibo/nvim-httpyac) (`.http`-Dateien, `<leader>Rs` Request, `<leader>Re` Environment aus `http-client.env.json`) – HTTP-Client für die *-bff-Services, braucht das CLI `npm install -g httpyac`
   - `<A-j>`/`<A-k>` – Zeile(n) verschieben
 - **Sonstiges:** treesitter, lualine, which-key, autopairs/surround (Kommentare `gc`/`gcc` kommen nativ aus Neovim-Core)
 
