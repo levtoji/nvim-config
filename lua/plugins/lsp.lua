@@ -166,7 +166,9 @@ return {
         -- einen rzc-Build-Server, der Abstürze von nvim überlebt (verwaist unter launchd,
         -- 100%+ CPU). MSBuild liest Umgebungsvariablen als Properties; bleibt per Deep-Merge
         -- neben den cmd_env-Defaults von roslyn.nvim erhalten.
-        cmd_env = { UseRazorBuildServer = "false" },
+        -- Daemon beendet sich mit dem letzten Client: Server < 5.12 hat keinen Keepalive-Default
+        -- und überlebte nvim sonst unbegrenzt.
+        cmd_env = { UseRazorBuildServer = "false", ROSLYN_LANGUAGE_SERVER_DAEMON_KEEPALIVE = "0" },
         settings = {
           ["csharp|inlay_hints"] = {
             csharp_enable_inlay_hints_for_implicit_variable_types = true,
