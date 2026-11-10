@@ -76,11 +76,11 @@ return {
             vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
           end
 
-          -- roslyn.nvim startet für Razor-Projekte einen dotnet-Build-Server
-          -- (rzc.dll) im Hintergrund, der auch nach dem Schließen der Solution
-          -- weiterläuft (siehe DEV-Vorfall 2026-09-15: rzc hing sich auf und lief
-          -- über eine Stunde mit 120%+ CPU, verwaist unter launchd). Beim Verlassen
-          -- von nvim räumen wir deshalb einmalig auf.
+          -- Netz für die übrigen dotnet-Build-Server (MSBuild, VBCSCompiler), die auch
+          -- nach dem Schließen der Solution weiterlaufen (siehe DEV-Vorfall 2026-09-15:
+          -- rzc lief über eine Stunde mit 120%+ CPU, verwaist unter launchd; rzc selbst
+          -- wird per cmd_env unten gar nicht mehr gestartet). Greift nur bei regulärem
+          -- Beenden von nvim (VimLeavePre), nicht bei Kill/Absturz.
           if client and client.name == "roslyn" then
             vim.api.nvim_create_autocmd("VimLeavePre", {
               group = vim.api.nvim_create_augroup("roslyn-build-server-cleanup", { clear = true }),
@@ -162,6 +162,11 @@ return {
       -- choose_target, broad_search, ...) - LSP-`settings` müssen wie bei den anderen
       -- Servern hier über vim.lsp.config() gesetzt werden, sonst verpuffen sie wirkungslos.
       vim.lsp.config("roslyn", {
+        -- Projekte mit UseRazorSourceGenerator=false (z.B. macoservice.web) starten sonst
+        -- einen rzc-Build-Server, der Abstürze von nvim überlebt (verwaist unter launchd,
+        -- 100%+ CPU). MSBuild liest Umgebungsvariablen als Properties; bleibt per Deep-Merge
+        -- neben den cmd_env-Defaults von roslyn.nvim erhalten.
+        cmd_env = { UseRazorBuildServer = "false" },
         settings = {
           ["csharp|inlay_hints"] = {
             csharp_enable_inlay_hints_for_implicit_variable_types = true,
